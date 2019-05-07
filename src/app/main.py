@@ -2,6 +2,7 @@ import functools
 
 from starlette.applications import Starlette
 from starlette.middleware.authentication import AuthenticationMiddleware
+from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from starlette.staticfiles import StaticFiles
 import starlette_auth as auth
@@ -47,6 +48,7 @@ app.mount(path='/static', app=StaticFiles(directory='static'), name='static')
 # middleware
 app.add_middleware(AuthenticationMiddleware, backend=auth.ModelAuthBackend())
 app.add_middleware(SessionMiddleware, secret_key=settings.SECRET_KEY)
+app.add_middleware(CORSMiddleware, allow_origins=settings.ALLOWED_HOSTS)
 app.add_middleware(core.middleware.DatabaseMiddleware)
 
 # exception handlers
