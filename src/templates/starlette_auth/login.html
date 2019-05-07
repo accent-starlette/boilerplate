@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-1h">
+    <p>Please login to get started</p>
+    <form method="post" novalidate>
+        {{ form }}
+        <button type="submit" class="button button-primary">Login</button>
+    </form>
+</div>
+{% endblock %}

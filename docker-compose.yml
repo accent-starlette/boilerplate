@@ -1,0 +1,29 @@
+version: '2'
+
+services:
+  app:
+    build:
+      context: .
+      args:
+      - REQUIREMENTS_FILE=/requirements/dev.txt
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5432/appdb
+      - DEBUG=True
+    volumes:
+    - ./src:/app
+    depends_on:
+    - db
+    ports:
+    - "8000:8000"
+    command: ['uvicorn', '--host', '0.0.0.0', '--port', '8000', '--reload', 'app.main:app']
+  db:
+    image: postgres:9.6
+    environment:
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=password
+    - POSTGRES_DB=appdb
+    - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+    - ./.postgres:/var/lib/postgresql/data/pgdata
+    ports:
+    - "5432:5432"
