@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+set -x
+
+mypy app --ignore-missing-imports
+autoflake --in-place --recursive --remove-unused-variables app tests
+black app tests
+isort --multi-line=3 --trailing-comma --force-grid-wrap=0 --combine-as --line-width 88 --recursive --apply app tests

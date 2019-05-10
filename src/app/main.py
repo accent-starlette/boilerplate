@@ -1,17 +1,15 @@
 import functools
 
+import starlette_auth as auth
+import starlette_core as core
+import starlette_file as file
 from starlette.applications import Starlette
 from starlette.middleware.authentication import AuthenticationMiddleware
 from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from starlette.staticfiles import StaticFiles
-import starlette_auth as auth
-import starlette_core as core
-import starlette_file as file
-import uvicorn
 
 from app import db, handlers, settings
-
 
 # config
 core.config.email_default_from_address = settings.EMAIL_DEFAULT_FROM_ADDRESS
@@ -24,26 +22,26 @@ core.config.email_password = settings.EMAIL_PASSWORD
 # file storage
 if settings.AWS_ACCESS_KEY_ID:
     file.StoreManager.register(
-        's3',
+        "s3",
         functools.partial(
             file.S3Store,
             settings.AWS_BUCKET,
             settings.AWS_ACCESS_KEY_ID,
             str(settings.AWS_SECRET_ACCESS_KEY),
             settings.AWS_REGION,
-            acl='private'
+            acl="private",
         ),
-        default=True
+        default=True,
     )
 
 # base app
 app = Starlette(debug=settings.DEBUG)
 
 # sub apps
-app.mount(path='/auth', app=auth.app, name='auth')
+app.mount(path="/auth", app=auth.app, name="auth")
 
 # static app
-app.mount(path='/static', app=StaticFiles(directory='static'), name='static')
+app.mount(path="/static", app=StaticFiles(directory="static"), name="static")
 
 # middleware
 app.add_middleware(AuthenticationMiddleware, backend=auth.ModelAuthBackend())
@@ -60,6 +58,7 @@ if settings.SENTRY_DSN:
     try:
         from sentry_asgi import SentryMiddleware
         import sentry_sdk
+
         sentry_sdk.init(str(settings.SENTRY_DSN))
         app = SentryMiddleware(app)
     except ImportError:

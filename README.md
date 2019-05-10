@@ -57,11 +57,20 @@ The container is ready at http://localhost:8000
 ### other
 - SENTRY_DSN
 
-## Testing
+## Formatting and Linting
+
+Sorts imports, removes unused variables, max line length etc
 
 ```bash
-docker-compose exec app sh
-pytest --cov=app --cov-report html
+docker-compose exec app ./scripts/lint
+```
+
+## Testing
+
+Run tests and coverage
+
+```bash
+docker-compose exec app ./scripts/test
 ```
 
 ## New User

@@ -1,5 +1,9 @@
 -r base.txt
 
+autoflake
+black
+isort
+mypy
 pytest
 pytest-cov
 requests

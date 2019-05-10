@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+set -x
+
+pytest --cov=app --cov-report html
+mypy app --ignore-missing-imports
+autoflake --recursive --remove-unused-variables app tests
+black app tests --check
