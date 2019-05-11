@@ -15,7 +15,7 @@ services:
     - db
     ports:
     - "8000:8000"
-    command: ['uvicorn', '--host', '0.0.0.0', '--port', '8000', '--reload', 'app.main:app']
+    command: ['python', 'app/main.py']
   db:
     image: postgres:9.6
     environment:

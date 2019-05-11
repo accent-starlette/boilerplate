@@ -3,6 +3,7 @@ import functools
 import starlette_auth as auth
 import starlette_core as core
 import starlette_file as file
+import uvicorn
 from starlette.applications import Starlette
 from starlette.middleware.authentication import AuthenticationMiddleware
 from starlette.middleware.cors import CORSMiddleware
@@ -63,3 +64,7 @@ if settings.SENTRY_DSN:
         app = SentryMiddleware(app)
     except ImportError:
         pass
+
+# load the app
+if __name__ == "__main__":
+    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, debug=settings.DEBUG)
