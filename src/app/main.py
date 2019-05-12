@@ -10,7 +10,7 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from starlette.staticfiles import StaticFiles
 
-from app import db, handlers, settings
+from app import db, endpoints, handlers, settings
 
 # config
 core.config.email_default_from_address = settings.EMAIL_DEFAULT_FROM_ADDRESS
@@ -37,6 +37,9 @@ if settings.AWS_ACCESS_KEY_ID:
 
 # base app
 app = Starlette(debug=settings.DEBUG)
+
+# routes
+app.add_route("/", endpoints.Home, methods=["GET"], name="home")
 
 # sub apps
 app.mount(path="/auth", app=auth.app, name="auth")
