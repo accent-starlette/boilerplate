@@ -79,16 +79,19 @@ docker-compose exec app ./scripts/test
 docker-compose exec app python
 ```
 
+The following will just paste into the python shell to
+save you copying each line.
+
 ```python
->> from app import db
->> from starlette_core.database import Session
->> from starlette_auth.tables import User
->> user = User(email='admin@example.com', first_name='Admin', last_name='User')
->> user.set_password('password')
->> session = Session()
->> session.add(user)
->> session.commit()
->> session.close()
+from app import db
+from starlette_core.database import Session
+from starlette_auth.tables import User
+user = User(email='admin@example.com', first_name='Admin', last_name='User')
+user.set_password('password')
+session = Session()
+session.add(user)
+session.commit()
+session.remove()
 ```
 
 ## Styles
