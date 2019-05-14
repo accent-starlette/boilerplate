@@ -91,7 +91,7 @@ user.set_password('password')
 session = Session()
 session.add(user)
 session.commit()
-session.remove()
+session.close()
 ```
 
 ## Styles
