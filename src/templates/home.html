@@ -1,1 +1,8 @@
 {% extends "base.html" %}
+
+{% block content %}
+<div class="container my-1h">
+    <h3>Some Sample Text</h3>
+    {{ lipsum(n=2, html=True, min=20, max=100) }}
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+/* layput */
+
+header {
+  background: color("cinder");
+  color: color("white");
+  a {
+    color: color("white");
+    &:hover {
+      color: color-darken("white", $darken-hover-percent);
+    }
+  }
+}

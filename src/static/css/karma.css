@@ -918,7 +918,7 @@ body {
   font-family: "Roboto", sans-serif;
   font-size: 15px;
   font-weight: 400;
-  color: #3e3e3e;
+  color: #24292e;
   background: white;
 }
 
@@ -959,7 +959,7 @@ button,
   font-size: 1.5rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #3e3e3e;
+  color: #24292e;
   text-align: center;
   text-decoration: none;
   white-space: nowrap;
@@ -975,7 +975,7 @@ button,
 }
 
 .button:hover, .button:focus {
-  color: #3e3e3e;
+  color: #24292e;
   background-color: #e6e6e6;
   border-color: #cdcdcd;
   outline: 0;
@@ -987,7 +987,7 @@ button,
 }
 
 .button.button-outline:hover, .button.button-outline:focus {
-  color: #252525;
+  color: #0e1011;
   background-color: transparent;
   border-color: #cdcdcd;
   outline: 0;
@@ -1000,7 +1000,7 @@ button,
 }
 
 .button.button-clear:hover, .button.button-clear:focus {
-  color: #252525;
+  color: #0e1011;
   background-color: transparent;
   border-color: transparent;
   outline: 0;
@@ -1094,7 +1094,7 @@ samp {
 code {
   padding: 0.2rem 0.5rem;
   font-size: 100%;
-  color: #3e3e3e;
+  color: #24292e;
   word-break: break-word;
   background: #f0f0f0;
   border: 1px solid #e6e6e6;
@@ -1107,7 +1107,7 @@ pre {
   margin-bottom: 1.5rem;
   overflow-x: auto;
   font-size: 90%;
-  color: #3e3e3e;
+  color: #24292e;
   white-space: pre;
   background: #f0f0f0;
   border: 1px solid #e6e6e6;
@@ -1133,7 +1133,7 @@ input[type="date"], input[type="datetime"], input[type="datetime-local"], input[
   margin-bottom: 1.5rem;
   font-family: inherit;
   line-height: 1.5;
-  color: #3e3e3e;
+  color: #24292e;
   background: white;
   border: 1px solid #e6e6e6;
   border-radius: 0.25rem;
@@ -1201,7 +1201,7 @@ textarea {
   margin-bottom: 1.5rem;
   font-family: inherit;
   line-height: 1.5;
-  color: #3e3e3e;
+  color: #24292e;
   background: white;
   border: 1px solid #e6e6e6;
   border-radius: 0.25rem;
@@ -1226,7 +1226,7 @@ select {
   margin-bottom: 1.5rem;
   font-family: inherit;
   line-height: 1.5;
-  color: #3e3e3e;
+  color: #24292e;
   background: white;
   border: 1px solid #e6e6e6;
   border-radius: 0.25rem;
@@ -1381,7 +1381,7 @@ h1,
 .h5, h6,
 .h6 {
   font-family: "Roboto", sans-serif;
-  color: #3e3e3e;
+  color: #24292e;
 }
 
 h1 small, .h1 small, h2 small, .h2 small, h3 small, .h3 small, h4 small, .h4 small, h5 small, .h5 small, h6 small, .h6 small {
@@ -1529,6 +1529,20 @@ sup {
 }
 
 /* '' */
+/* layput */
+header {
+  background: #24292e;
+  color: white;
+}
+
+header a {
+  color: white;
+}
+
+header a:hover {
+  color: #e6e6e6;
+}
+
 /* utils */
 .p-0 {
   padding: 0 !important;
@@ -1991,6 +2005,14 @@ sup {
 
 .c-pinterest {
   color: #bd081c;
+}
+
+.b-cinder {
+  background-color: #24292e;
+}
+
+.c-cinder {
+  color: #24292e;
 }
 
 .disabled {
