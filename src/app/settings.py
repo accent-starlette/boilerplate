@@ -29,4 +29,5 @@ SENTRY_DSN = config("SENTRY_DSN", cast=URL, default=None)
 
 # test
 if TESTING:
-    DATABASE_URL = DATABASE_URL.replace(path=DATABASE_URL.path + "_test")
+    if DATABASE_URL.scheme != "sqlite":
+        DATABASE_URL = DATABASE_URL.replace(path=DATABASE_URL.path + "_test")

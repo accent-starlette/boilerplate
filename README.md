@@ -1,5 +1,9 @@
 # Starlette Boilerplate Project
 
+<a href="https://travis-ci.org/accent-starlette/boilerplate">
+    <img src="https://travis-ci.org/accent-starlette/boilerplate.svg?branch=master" alt="Build Status">
+</a>
+
 ## Getting Started
 
 Build the container:
