@@ -1,11 +1,12 @@
 from starlette.config import Config
 from starlette.datastructures import URL, CommaSeparatedStrings, Secret
+from starlette_core.database import DatabaseURL
 
 config = Config()
 
 # base
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=CommaSeparatedStrings)
-DATABASE_URL = config("DATABASE_URL", cast=URL)
+DATABASE_URL = config("DATABASE_URL", cast=DatabaseURL)
 DEBUG = config("DEBUG", cast=bool, default=False)
 SECRET_KEY = config("SECRET_KEY", cast=Secret)
 
@@ -29,5 +30,4 @@ SENTRY_DSN = config("SENTRY_DSN", cast=URL, default=None)
 
 # test
 if TESTING:
-    if DATABASE_URL.scheme != "sqlite":
-        DATABASE_URL = DATABASE_URL.replace(path=DATABASE_URL.path + "_test")
+    DATABASE_URL = DATABASE_URL.replace(database="test_" + DATABASE_URL.database)
