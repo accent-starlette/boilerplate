@@ -77,7 +77,7 @@ Run tests and coverage
 docker-compose exec app ./scripts/test
 ```
 
-## New User
+## New User & Example Scope
 
 ```bash
 docker-compose exec app python
@@ -89,11 +89,13 @@ save you copying each line.
 ```python
 from app import db
 from starlette_core.database import Session
-from starlette_auth.tables import User
+from starlette_auth.tables import Scope, User
+scope = Scope(code="admin", description="Full administrators access")
 user = User(email='admin@example.com', first_name='Admin', last_name='User')
 user.set_password('password')
+user.scopes.append(scope)
 session = Session()
-session.add(user)
+session.add_all([scope, user])
 session.commit()
 session.close()
 ```
