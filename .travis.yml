@@ -5,21 +5,25 @@ cache: pip
 
 env:
   global:
-    - ALLOWED_HOSTS=*
-    - DATABASE_URL=sqlite://
-    - SECRET_KEY=secret
+  - ALLOWED_HOSTS=*
+  - DATABASE_URL=sqlite://
+  - SECRET_KEY=secret
 
 python:
-    - "3.6"
-    - "3.7"
-    - "3.8-dev"
+- "3.6"
+- "3.7"
+- "3.8-dev"
+
+matrix:
+  allow_failures:
+  - python: "3.8-dev"
 
 install:
-    - pip install -U -r requirements/dev.txt
+- pip install -U -r requirements/dev.txt
 
 script:
-    - cd src && scripts/test
+- cd src && scripts/test
 
 after_script:
-    - pip install codecov
-    - cd src && codecov
+- pip install codecov
+- cd src && codecov
