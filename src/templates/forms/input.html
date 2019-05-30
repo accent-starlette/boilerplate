@@ -1,6 +1,0 @@
-<div>
-    <label for="{{ field_id }}">{{ label }}</label>
-    <input type="{{ input_type }}" class="{% if error %}mb-1{% endif %}" id="{{ field_id }}" name="{{ field_name }}" {% if required %}required{% endif %} {% if value is not none %}value="{{ value }}"{% endif %}>
-    {% if field.description %}<p class="mb-1 small muted">{{ field.description }}</p>{% endif %}
-    {% if error %}<p class="c-red">{{ error }}</p>{% endif %}
-</div>

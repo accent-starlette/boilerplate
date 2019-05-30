@@ -1529,6 +1529,24 @@ sup {
 }
 
 /* '' */
+/* form */
+.text-error {
+  margin-bottom: 1.5rem;
+}
+
+.text-error input,
+.text-error select,
+.text-error textarea {
+  margin-bottom: .25rem;
+  border-color: #ff4136;
+  border-width: 2px;
+}
+
+.text-error cite {
+  font-style: normal;
+  color: #ff4136;
+}
+
 /* layput */
 header {
   background: #24292e;
