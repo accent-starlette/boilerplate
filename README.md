@@ -34,7 +34,7 @@ alembic revision --autogenerate -m "first revision"
 
 ## Ready!!
 
-The container is ready at http://localhost:8000
+The container is ready at http://localhost
 
 ## Environment Variables
 
