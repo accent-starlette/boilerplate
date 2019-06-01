@@ -1,6 +1,7 @@
 # starlette dependencies
 alembic
 aiofiles
+gunicorn
 psycopg2-binary
 starlette
 uvicorn

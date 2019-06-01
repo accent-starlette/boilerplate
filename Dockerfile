@@ -8,7 +8,6 @@ RUN         set -ex \
                 libpq \
                 make \
                 postgresql-client \
-                supervisor \
                 zlib-dev
 
 # install package requirements into a copy of the base image
@@ -44,8 +43,10 @@ COPY        --from=builder /install /usr/local
 
 COPY        ./src /app
 
-COPY        docker-entrypoint.sh /docker-entrypoint.sh
-COPY        supervisord.conf /supervisord.conf
+COPY        prestart.sh /prestart.sh
+COPY        start.sh /start.sh
+COPY        start-reload.sh /start-reload.sh
+COPY        gunicorn_conf.py /gunicorn_conf.py
 
 WORKDIR     /app
 
@@ -63,8 +64,8 @@ ENV         PYTHONUNBUFFERED=1 \
 
 # Entry:
 
-EXPOSE      8000
+EXPOSE      80
 
-ENTRYPOINT  ["/docker-entrypoint.sh"]
+ENTRYPOINT  ["/prestart.sh"]
 
-CMD         ["supervisord", "-c", "/supervisord.conf"]
+CMD         ["/start.sh"]

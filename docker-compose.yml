@@ -14,8 +14,8 @@ services:
     depends_on:
     - db
     ports:
-    - "8000:8000"
-    command: ['python', 'app/main.py']
+    - "80:80"
+    command: ['/start-reload.sh']
   db:
     image: postgres:9.6
     environment:
