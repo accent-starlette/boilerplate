@@ -1,15 +1,16 @@
 /* variables */
 
 // typography
-$base-font-family:              "Roboto", sans-serif;
+$base-font-family:              "Source Sans Pro", sans-serif;
 $code-font-family:              "Inconsolata", monospace;
 
 // colors
 $colors: (
-  "cinder":                     rgb(36, 41, 46)
+  "primary":                    rgb(26, 162, 220),
+  "dovegray":                   rgb(102, 102, 102),
 );
 
-$font-color:                    map-get($colors, "cinder");
+$font-color:                    map-get($colors, "dovegray");
 
 // forms
 $input-use-full-width:          true;

@@ -7,13 +7,14 @@
         <meta name="author" content="">
         <title>Example</title>
         <style>
-            @import url('https://fonts.googleapis.com/css?family=Inconsolata|Roboto:300,400,400i,700&display=swap');
+            @import url('https://fonts.googleapis.com/css?family=Inconsolata|Source+Sans+Pro:300,400,400i,600&display=swap');
         </style>
         <link href="{{ url_for('static', path='/css/karma.min.css') }}" rel="stylesheet">
         {% block extra_css %}{% endblock %}
     </head>
 
     <body>
+    {% block header %}
     <header class="py-1">
         <div class="container d-flex">
             <div class="h2 m-0"><a href="/">Example</a></div>
@@ -28,6 +29,7 @@
             </div>
         </div>
     </header>
+    {% endblock %}
     {% block content %}{% endblock %}
     {% block extra_js %}{% endblock %}
     </body>

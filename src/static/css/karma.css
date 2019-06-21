@@ -913,10 +913,10 @@ html {
 }
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-size: 15px;
   font-weight: 400;
-  color: #24292e;
+  color: #666666;
   background: white;
 }
 
@@ -925,14 +925,14 @@ main {
 }
 
 a {
-  color: #33c3f0;
+  color: #1aa2dc;
   text-decoration: none;
   background-color: transparent;
   transition: color linear 250ms;
 }
 
 a:hover {
-  color: #10aee0;
+  color: #1580ae;
   text-decoration: none;
 }
 
@@ -957,7 +957,7 @@ button,
   font-size: 1.5rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #24292e;
+  color: #666666;
   text-align: center;
   text-decoration: none;
   white-space: nowrap;
@@ -973,7 +973,7 @@ button,
 }
 
 .button:hover, .button:focus {
-  color: #24292e;
+  color: #666666;
   background-color: #e6e6e6;
   border-color: #cdcdcd;
   outline: 0;
@@ -985,7 +985,7 @@ button,
 }
 
 .button.button-outline:hover, .button.button-outline:focus {
-  color: #0e1011;
+  color: #4d4d4d;
   background-color: transparent;
   border-color: #cdcdcd;
   outline: 0;
@@ -998,7 +998,7 @@ button,
 }
 
 .button.button-clear:hover, .button.button-clear:focus {
-  color: #0e1011;
+  color: #4d4d4d;
   background-color: transparent;
   border-color: transparent;
   outline: 0;
@@ -1006,38 +1006,38 @@ button,
 
 .button.button-primary {
   color: white;
-  background-color: #33c3f0;
-  border-color: #1bbcee;
+  background-color: #1aa2dc;
+  border-color: #1791c5;
 }
 
 .button.button-primary:hover, .button.button-primary:focus {
   color: white;
-  background-color: #10aee0;
-  border-color: #0f9cc8;
+  background-color: #1580ae;
+  border-color: #127098;
   outline: 0;
 }
 
 .button.button-outline.button-primary {
-  color: #33c3f0;
+  color: #1aa2dc;
   background-color: transparent;
-  border-color: #33c3f0;
+  border-color: #1aa2dc;
 }
 
 .button.button-outline.button-primary:hover, .button.button-outline.button-primary:focus {
-  color: #10aee0;
+  color: #1580ae;
   background-color: transparent;
-  border-color: #10aee0;
+  border-color: #1580ae;
   outline: 0;
 }
 
 .button.button-clear.button-primary {
-  color: #33c3f0;
+  color: #1aa2dc;
   background-color: transparent;
   border-color: transparent;
 }
 
 .button.button-clear.button-primary:hover, .button.button-clear.button-primary:focus {
-  color: #10aee0;
+  color: #1580ae;
   background-color: transparent;
   border-color: transparent;
   outline: 0;
@@ -1092,7 +1092,7 @@ samp {
 code {
   padding: 0.2rem 0.5rem;
   font-size: 100%;
-  color: #24292e;
+  color: #666666;
   word-break: break-word;
   background: #f0f0f0;
   border: 1px solid #e6e6e6;
@@ -1105,7 +1105,7 @@ pre {
   margin-bottom: 1.5rem;
   overflow-x: auto;
   font-size: 90%;
-  color: #24292e;
+  color: #666666;
   white-space: pre;
   background: #f0f0f0;
   border: 1px solid #e6e6e6;
@@ -1131,7 +1131,7 @@ input[type="date"], input[type="datetime"], input[type="datetime-local"], input[
   margin-bottom: 1.5rem;
   font-family: inherit;
   line-height: 1.5;
-  color: #24292e;
+  color: #666666;
   background: white;
   border: 1px solid #e6e6e6;
   border-radius: 0.25rem;
@@ -1146,7 +1146,7 @@ input[type="date"], input[type="datetime"], input[type="datetime-local"], input[
 
 input[type="date"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="email"]:focus, input[type="month"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="text"]:focus, input[type="url"]:focus, input[type="week"]:focus {
   background: white;
-  border-color: #33c3f0;
+  border-color: #1aa2dc;
   outline: 0;
 }
 
@@ -1199,7 +1199,7 @@ textarea {
   margin-bottom: 1.5rem;
   font-family: inherit;
   line-height: 1.5;
-  color: #24292e;
+  color: #666666;
   background: white;
   border: 1px solid #e6e6e6;
   border-radius: 0.25rem;
@@ -1215,7 +1215,7 @@ textarea {
 
 textarea:focus {
   background: white;
-  border-color: #33c3f0;
+  border-color: #1aa2dc;
   outline: 0;
 }
 
@@ -1224,7 +1224,7 @@ select {
   margin-bottom: 1.5rem;
   font-family: inherit;
   line-height: 1.5;
-  color: #24292e;
+  color: #666666;
   background: white;
   border: 1px solid #e6e6e6;
   border-radius: 0.25rem;
@@ -1239,7 +1239,7 @@ select {
 
 select:focus {
   background: white;
-  border-color: #33c3f0;
+  border-color: #1aa2dc;
   outline: 0;
 }
 
@@ -1378,8 +1378,8 @@ h1,
 .h4, h5,
 .h5, h6,
 .h6 {
-  font-family: "Roboto", sans-serif;
-  color: #24292e;
+  font-family: "Source Sans Pro", sans-serif;
+  color: #666666;
 }
 
 h1 small, .h1 small, h2 small, .h2 small, h3 small, .h3 small, h4 small, .h4 small, h5 small, .h5 small, h6 small, .h6 small {
@@ -1547,7 +1547,7 @@ sup {
 
 /* layput */
 header {
-  background: #24292e;
+  background: #1aa2dc;
   color: white;
 }
 
@@ -1840,11 +1840,11 @@ header a:hover {
 }
 
 .b-primary {
-  background-color: #33c3f0;
+  background-color: #1aa2dc;
 }
 
 .c-primary {
-  color: #33c3f0;
+  color: #1aa2dc;
 }
 
 .b-secondary {
@@ -2023,12 +2023,12 @@ header a:hover {
   color: #bd081c;
 }
 
-.b-cinder {
-  background-color: #24292e;
+.b-dovegray {
+  background-color: #666666;
 }
 
-.c-cinder {
-  color: #24292e;
+.c-dovegray {
+  color: #666666;
 }
 
 .disabled {

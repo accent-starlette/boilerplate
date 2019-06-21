@@ -1,21 +1,30 @@
 {% extends "base.html" %}
 
+{% block header %}{% endblock %}
 {% block content %}
-<div class="container my-1h">
-    <p>Please login to get started</p>
-    <form method="post" novalidate>
-        {% for field in form %}
-        <div {% if field.errors %}class="text-error"{% endif %}>
-            {{ field.label }}
-            {{ field }}
-            {% if field.errors %}
-            <cite>{{ field.errors|join(' ') }}</cite>
-            {% elif field.description %}
-            <cite>{{ field.description }}</cite>
-            {% endif %}
+<div class="full-visual-height d-flex align-items-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div>
+                    <p class="h1 c-silverchalice">Login</p>
+                    <form class="form" method="post" novalidate>
+                        {% for field in form %}
+                        <div {% if field.errors %}class="text-error"{% endif %}>
+                            {{ field.label }}
+                            {{ field }}
+                            {% if field.errors %}
+                            <cite>{{ field.errors|join(' ') }}</cite>
+                            {% elif field.description %}
+                            <cite>{{ field.description }}</cite>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                        <button type="submit" class="button button-primary button-outline">Login</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        {% endfor %}
-        <button type="submit" class="button button-primary">Login</button>
-    </form>
+    </div>
 </div>
 {% endblock %}
