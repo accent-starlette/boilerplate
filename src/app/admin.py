@@ -37,8 +37,12 @@ class UserCreateForm(UserBaseForm):
     )
 
 
+def all_scopes():
+    return Scope.query.order_by("code")
+
+
 class UserUpdateForm(UserBaseForm):
-    scopes = QuerySelectMultipleField()
+    scopes = QuerySelectMultipleField(query_factory=all_scopes)
     is_active = fields.BooleanField()
 
 
@@ -67,13 +71,6 @@ class UserAdmin(ModelAdmin):
                 User.last_name.like(f"%{term}%"),
             )
         )
-
-    @classmethod
-    def get_form(cls, form_cls, **kwargs):
-        form = super().get_form(form_cls, **kwargs)
-        if isinstance(form, UserUpdateForm):
-            form.scopes.query = Scope.query.order_by("code")
-        return form
 
     @classmethod
     async def do_create(cls, form):
