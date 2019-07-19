@@ -1,9 +1,6 @@
-import functools
-
 import starlette_admin
 import starlette_auth
 import starlette_core
-import starlette_file
 import uvicorn
 from starlette.applications import Starlette
 from starlette.middleware.authentication import AuthenticationMiddleware
@@ -24,21 +21,6 @@ starlette_core.config.email_host = settings.EMAIL_HOST
 starlette_core.config.email_port = settings.EMAIL_PORT
 starlette_core.config.email_username = settings.EMAIL_USERNAME
 starlette_core.config.email_password = settings.EMAIL_PASSWORD
-
-# file storage
-if settings.AWS_ACCESS_KEY_ID:
-    starlette_file.StoreManager.register(
-        "s3",
-        functools.partial(
-            starlette_file.S3Store,
-            settings.AWS_BUCKET,
-            settings.AWS_ACCESS_KEY_ID,
-            str(settings.AWS_SECRET_ACCESS_KEY),
-            settings.AWS_REGION,
-            acl="private",
-        ),
-        default=True,
-    )
 
 # base app
 app = Starlette(debug=settings.DEBUG)
