@@ -73,7 +73,7 @@ class UserAdmin(ModelAdmin):
         )
 
     @classmethod
-    async def do_create(cls, form):
+    async def do_create(cls, form, request):
         instance = cls.model_class()
         form.populate_obj(instance)
         instance.set_password(form.password.data)
