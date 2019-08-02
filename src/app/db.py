@@ -33,3 +33,4 @@ db = Database(DATABASE_URL, engine_kwargs=engine_kwargs)
 
 # import project and external tables
 from starlette_auth import tables  # noqa isort:skip
+from app.media import tables  # noqa isort:skip

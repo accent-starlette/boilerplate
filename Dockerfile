@@ -1,3 +1,4 @@
+ARG         EXTRA_DEPS="libmagic"
 ARG         REQUIREMENTS_FILE=/requirements/base.txt
 
 FROM        accent/starlette-docker:3.7-alpine

@@ -1,0 +1,15 @@
+{% extends "starlette_admin/base.html" %}
+
+{% block content %}
+<div class="container-fluid mt-header">
+    {% include "starlette_admin/partials/breadcrumb.html" %}
+    <h1>Delete Cache</h1>
+    <div class="panel">
+        <p>Are you sure you wish to delete the image cache?</p>
+        <p class="muted mb-0"><em>This will run in the background and could take a few seconds.</em></p>
+    </div>
+    {% with button_name='delete', button_class='button-red' %}
+    {% include "starlette_admin/partials/form.html" %}
+    {% endwith %}
+</div>
+{% endblock %}

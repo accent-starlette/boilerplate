@@ -1,0 +1,33 @@
+{% extends "starlette_admin/base.html" %}
+
+{% block extra_css %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/basic.min.css" rel="stylesheet">
+<style>
+.dropzone { background-color: #eeeee8; border: 1px dashed #e3e3da; }
+.dropzone .dz-message { cursor: pointer; margin: 2rem 0; text-align: center; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-header">
+    {% include "starlette_admin/partials/breadcrumb.html" %}
+    <h1>Add</h1>
+    <form id="dropzone" class="dropzone" action="{{ url_for(url_names.create) }}" method="post" enctype="multipart/form-data">
+        <div class="fallback">
+            <div>{{ form.choose_images.label }}{{ form.choose_images }}</div>
+            <input type="submit" class="button button-primary" value="Submit">
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
+<script>
+    Dropzone.options.dropzone = {
+        paramName: "choose_images",
+        maxFilesize: 5,
+        acceptedFiles: "{{ form.choose_images.render_kw.accept }}",
+    };
+</script>
+{% endblock %}

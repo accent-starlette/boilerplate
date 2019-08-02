@@ -1,0 +1,114 @@
+{% extends "starlette_admin/base.html" %}
+
+{% block extra_css %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.4/cropper.min.css" rel="stylesheet">
+<style>
+.img-container { max-width: 100%; margin-bottom: 1rem; }
+.img-container img { width: 100%; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-header">
+    {% include "starlette_admin/partials/breadcrumb.html" %}
+    <h1>Update</h1>
+    <div class="row">
+        <div class="col-lg-5 offset-lg-1 order-lg-1">
+            <div>
+                <label>URL</label>
+                <p><a target="_blank" href="{{ url_for('media', path=object.file.path) }}">{{ object.file.path }}</a></p>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label>File Size</label>
+                    <p class="muted mb-0">{{ object.file.file_size|filesizeformat(true) }}</p>
+                </div>
+                <div class="col">
+                    <label>Max Dimensions</label>
+                    <p class="muted mb-0">{{ object.file.width }}x{{ object.file.height }}</p>
+                </div>
+            </div>
+            <hr/>
+            <p class="muted">To define this image's most important region, drag a box over the image below.</p>
+            <div class="img-container">
+                <img src="{{ url_for('media', path=object.file.path) }}">
+            </div>
+            <button type="button" id="clear-focal" class="button button-red button-outline button-small mb-1h">Clear Focal Point</button>
+        </div>
+        <div class="col-lg-6">
+            {% with button_name='update', show_delete_link=True %}
+            {% include "starlette_admin/partials/form.html" %}
+            {% endwith %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.4/cropper.min.js"></script>
+<script>
+    window.onload = function () {
+        'use strict';
+
+        var Cropper = window.Cropper;
+        var container = document.querySelector('.img-container');
+        var image = container.getElementsByTagName('img').item(0);
+        var dataX = document.getElementById('focal_point_x');
+        var dataY = document.getElementById('focal_point_y');
+        var dataHeight = document.getElementById('focal_point_height');
+        var dataWidth = document.getElementById('focal_point_width');
+        var clearFocal = document.getElementById('clear-focal');
+
+        {% if object.file.focal_point_x %}
+        var data = {
+            x: {{ object.file.focal_point_x }},
+            y: {{ object.file.focal_point_y }},
+            width: {{ object.file.focal_point_width }},
+            height: {{ object.file.focal_point_height }}
+        }
+        var autoCrop = true
+        {% else %}
+        var data = {};
+        var autoCrop = false
+        {% endif %}
+        var options = {
+            viewMode: 3,
+            responsive: false,
+            zoomable: false,
+            scalable: false,
+            rotatable: false,
+            data: data,
+            autoCrop: autoCrop,
+            crop: function (e) {
+                var data = e.detail;
+                dataX.value = Math.round(data.x);
+                dataY.value = Math.round(data.y);
+                dataHeight.value = Math.round(data.height);
+                dataWidth.value = Math.round(data.width);
+            }
+        };
+
+        var cropper = new Cropper(image, options);
+
+        dataX.onchange = function(e) {
+            options.data.x = parseInt(e.target.value);
+            cropper.setData(options.data);
+        }
+        dataY.onchange = function(e) {
+            options.data.y = parseInt(e.target.value);
+            cropper.setData(options.data);
+        }
+        dataHeight.onchange = function(e) {
+            options.data.height = parseInt(e.target.value);
+            cropper.setData(options.data);
+        }
+        dataWidth.onchange = function(e) {
+            options.data.width = parseInt(e.target.value);
+            cropper.setData(options.data);
+        }
+        clearFocal.onclick = function(e) {
+            cropper.clear();
+        }
+    }
+</script>
+{% endblock %}

@@ -5,6 +5,7 @@ templates = Jinja2Templates(
     loader=jinja2.ChoiceLoader(
         [
             jinja2.FileSystemLoader("templates"),
+            jinja2.FileSystemLoader("app/media/templates"),
             jinja2.PackageLoader("starlette_admin", "templates"),
         ]
     )

@@ -1,0 +1,51 @@
+{% extends "starlette_admin/base.html" %}
+
+{% block extra_css %}
+<style>
+.card { background-color: #eeeee8; border: solid 1px #e3e3da; border-radius: .2rem; padding: .5rem; margin-bottom: 1.5rem; }
+.card:hover { border-color:#6261a9; transition: border-color linear 250ms; }
+.card img { margin-bottom: .5rem; }
+.card a { position: absolute; top: 0; right: 0; bottom: 0; left: 0; }
+.elllipsis { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-header">
+    {% include "starlette_admin/partials/breadcrumb.html" %}
+    <div class="pull-right">
+        <a href="{{ url_for(url_names.delete_cache) }}" class="button button-red button-clear">Delete Cache</a>
+        <a href="{{ url_for(url_names.create) }}" class="button button-primary">Add</a>
+    </div>
+    <h1>{{ collection_name }}</h1>
+    {% if search_enabled %}
+        {% from "starlette_admin/helpers/_list_helpers.html" import render_search_form %}
+        {{ render_search_form(search) }}
+    {% endif %}
+    <div class="row">
+        {% for object in list_objects -%}
+        <div class="col-sm-6 col-md-3 col-lg-2">
+            <div class="card">
+                {% with rendition = object.get_rendition(['fill-300x300']) %}
+                <img class="img-fluid" src="{{ url_for('media', path=rendition.file.path) }}">
+                {% endwith %}
+                <div class="elllipsis small strong">{{ object }}</div>
+                <div class="elllipsis small muted pull-right">{{ object.file.file_size|filesizeformat(true) }}</div>
+                <div class="elllipsis small muted">{{ object.file.width }}x{{ object.file.height }}</div>
+                <a href="{{ url_for(url_names.edit, id=object.id) }}"></a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="row">
+        <div class="col">
+        {% if is_paginated %}
+            {% from "starlette_admin/helpers/_list_helpers.html" import render_paginator %}
+            {{ render_paginator(request, paginator, page_obj) }}
+        {% else %}
+            {{ list_objects|length }} record{% if list_objects|length != 1 %}s{% endif %}
+        {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
