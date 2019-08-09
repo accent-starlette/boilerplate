@@ -35,4 +35,4 @@ class UserUpdateForm(UserBaseForm):
 
     class Meta:
         model = User
-        only = ["first_name", "last_name", "email", "is_active"]
+        only = ["first_name", "last_name", "email", "two_factor_enabled", "is_active"]

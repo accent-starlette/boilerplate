@@ -30,6 +30,7 @@ starlette_auth.config.reset_pw_email_template = (
     "starlette_admin/auth/password_reset_body.txt"
 )
 starlette_auth.config.secret_key = settings.SECRET_KEY
+starlette_auth.config.two_factor_template = "starlette_admin/auth/two_factor.html"
 starlette_auth.config.templates = globals.templates
 starlette_core.config.email_default_from_address = settings.EMAIL_DEFAULT_FROM_ADDRESS
 starlette_core.config.email_default_from_name = settings.EMAIL_DEFAULT_FROM_NAME
@@ -56,6 +57,11 @@ app.mount(
 )
 
 # middleware
+app.add_middleware(
+    starlette_auth.middleware.TwoFactorMiddleware,
+    two_factor_url="/auth/two-factor-verify",
+    exclude_paths=("/auth", "/static"),
+)
 app.add_middleware(AuthenticationMiddleware, backend=starlette_auth.ModelAuthBackend())
 app.add_middleware(SessionMiddleware, secret_key=settings.SECRET_KEY)
 app.add_middleware(CORSMiddleware, allow_origins=settings.ALLOWED_HOSTS)
