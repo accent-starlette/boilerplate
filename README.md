@@ -18,18 +18,18 @@ Up the container, this will also run migrations for you:
 docker-compose up
 ```
 
-Run python migrations manually:
-
-```bash
-docker-compose exec app sh
-alembic upgrade head
-```
-
-Create a new migration:
+Setup your database by creating your first revision, you may need to add some missing imports:
 
 ```bash
 docker-compose exec app sh
 alembic revision --autogenerate -m "first revision"
+```
+
+Then apply it:
+
+```bash
+docker-compose exec app sh
+alembic upgrade head
 ```
 
 ## Ready!!
