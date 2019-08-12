@@ -14,3 +14,4 @@ git+https://github.com/accent-starlette/starlette-core.git@master#egg=starlette-
 
 # other
 sentry-asgi
+wtforms-alchemy
