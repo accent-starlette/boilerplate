@@ -1,15 +1,30 @@
+from starlette.applications import Starlette
+from starlette.responses import JSONResponse
+from starlette.testclient import TestClient
 from starlette_auth.tables import User
 
 
-def test_default_test_user_exists():
+def test_no_default_user_exists_when_not_called():
+    assert User.query.count() == 0
+
+
+def test_default_test_user_exists_when_called(user):
     assert User.query.count() == 1
 
 
-def test_another_user_can_be_added():
-    user = User(email="another@example.com", first_name="Another", last_name="User")
-    user.save()
-    assert User.query.count() == 2
+def test_user_exists_in_db_for_app(user):
+    def create_app():
+        app = Starlette()
 
+        @app.route("/count")
+        def count(request):
+            return JSONResponse({"count": User.query.count()})
 
-def test_session_was_rolled_back_after_test():
-    assert User.query.count() == 1
+        app.add_route("/count", count)
+
+        return app
+
+    with TestClient(create_app()) as client:
+        response = client.get("/count")
+        assert response.status_code == 200
+        assert response.json() == {"count": 1}
