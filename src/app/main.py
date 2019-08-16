@@ -11,6 +11,7 @@ from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 
 from app import admin, db, endpoints, globals, handlers, settings
+from app.api.main import app as api_app
 
 starlette_admin.config.templates = globals.templates
 starlette_auth.config.templates = globals.templates
@@ -21,6 +22,7 @@ staticapp = GZipMiddleware(static)
 routes = [
     Route("/", endpoints.Home, methods=["GET"], name="home"),
     Mount("/admin", app=admin.adminsite, name=admin.adminsite.name),
+    Mount("/api", app=api_app, name="api"),
     Mount("/auth", app=starlette_auth.app, name="auth"),
     Mount("/static", app=staticapp, name="static"),
 ]
