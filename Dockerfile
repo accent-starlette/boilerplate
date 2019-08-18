@@ -7,7 +7,6 @@ RUN         set -ex \
                 libmagic \
                 libpq \
                 make \
-                postgresql-client \
                 zlib-dev
 
 # install package requirements into a copy of the base image
@@ -55,7 +54,7 @@ WORKDIR     /app
 ENV         PYTHONUNBUFFERED=1 \
             PYTHONPATH=/app \
             ALLOWED_HOSTS="*" \
-            DATABASE_URL=postgresql://postgres:password@db:5432/appdb \
+            DATABASE_URL=postgresql+psycopg2://postgres:password@db:5432/appdb \
             SECRET_KEY="***** change me *****" \
             EMAIL_HOST=mail \
             EMAIL_PORT=1025 \

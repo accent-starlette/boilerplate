@@ -7,7 +7,7 @@ services:
       args:
       - REQUIREMENTS_FILE=/requirements/dev.txt
     environment:
-      - DATABASE_URL=postgresql://postgres:password@db:5432/appdb
+      - DATABASE_URL=postgresql+psycopg2://postgres:password@db:5432/appdb
       - DEBUG=True
     volumes:
     - ./src:/app
