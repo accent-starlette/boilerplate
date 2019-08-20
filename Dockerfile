@@ -6,7 +6,6 @@ RUN         set -ex \
                 jpeg-dev \
                 libmagic \
                 libpq \
-                make \
                 zlib-dev
 
 # install package requirements into a copy of the base image
@@ -29,10 +28,11 @@ RUN         set -ex \
                 git \
                 libc-dev \
                 linux-headers \
+                make \
                 musl-dev \
                 postgresql-dev \
             && PYTHONUSERBASE=/install pip install --user --no-warn-script-location -r $REQUIREMENTS_FILE \
-            && apk del .build-deps
+            && apk del --no-cache .build-deps
 
 # get a fresh copy of the base image and copy in packages without all the cache
 
