@@ -12,7 +12,7 @@ Build the container:
 docker-compose build
 ```
 
-Up the container, this will also run migrations for you:
+Up the container:
 
 ```bash
 docker-compose up
