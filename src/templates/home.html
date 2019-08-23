@@ -5,5 +5,63 @@
     <h3>Some Sample Text</h3>
     {{ lipsum(n=2, html=True, min=20, max=100) }}
     <p><a href="/admin">Admin Site</a></p>
+
+    <h3>WebSocket</h3>
+    <p>Enter the token 123456 and then use another window to create/update or delete either a user or a scope.</p>
+    <div class="row">
+        <div class="col-6">
+            <form action="" class="d-flex">
+                <input type="password" id="token" placeholder="Authentication Token" class="mb-0 mr-1" />
+                <button class="button">Login</button>
+            </form>
+        </div>
+    </div>
+    <div id='messages'></div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    var auth_token;
+    function connect() {
+        var ws = new WebSocket("{% if request.url.is_secure %}wss{% else %}ws{% endif %}://{{ request.url.hostname }}:81/data");
+        function authenticate() {
+            if (auth_token) {
+                ws.send(JSON.stringify({"token": auth_token}));
+            }
+        }
+        ws.onopen = function(e) {
+            authenticate();
+        };
+        ws.onmessage = function(event) {
+            var messages = document.getElementById('messages');
+            var message = document.createElement('pre');
+            var content = document.createTextNode(event.data);
+            var json = JSON.parse(event.data);
+            if ("time_sent" in json) {
+                console.log(json, new Date(json.time_sent * 1000));
+            }
+            message.appendChild(content);
+            messages.prepend(message);
+        };
+        ws.onclose = function(e) {
+            console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+            setTimeout(function() {
+                connect();
+            }, 1000);
+        };
+        ws.onerror = function(err) {
+            console.error('Socket encountered error: ', err.message, 'Closing socket');
+            ws.close();
+        };
+        document.querySelector("form").onsubmit = function(event) {
+            event.preventDefault();
+            var input = document.getElementById("token");
+            auth_token = input.value;
+            input.value = "";
+            authenticate();
+        };
+    }
+    connect();
+</script>
 {% endblock %}

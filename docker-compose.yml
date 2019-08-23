@@ -13,10 +13,12 @@ services:
     - ./src:/app
     depends_on:
     - db
+    - redis
     - mail
     ports:
     - "80:80"
-    command: ['/start-reload.sh']
+    - "81:81"
+    command: ["supervisord", "-n", "-c", "/supervisord.dev.conf"]
   db:
     image: postgres:9.6
     environment:
@@ -28,6 +30,8 @@ services:
     - ./.postgres:/var/lib/postgresql/data/pgdata
     ports:
     - "5432:5432"
+  redis:
+    image: redis
   mail:
     image: mailhog/mailhog
     expose:

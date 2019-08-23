@@ -13,5 +13,6 @@ git+https://github.com/accent-starlette/starlette-core.git@master#egg=starlette-
 # git+https://github.com/accent-starlette/starlette-files.git@master#egg=starlette-files[s3]
 
 # other..
+aioredis
 sentry-asgi
 wtforms-alchemy
