@@ -1,19 +1,15 @@
 import pytest
-from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy_utils import create_database, database_exists, drop_database
 from starlette.config import environ
 from starlette.testclient import TestClient
 from starlette_auth.tables import User
+from starlette_core.database import Session
 
 environ["TESTING"] = "TRUE"
 
 from app.db import db  # noqa isort:skip
 from app.main import app  # noqa isort:skip
 from app.settings import DATABASE_URL  # noqa isort:skip
-
-LocalSession = scoped_session(sessionmaker())
-LocalSession.configure(bind=db.engine)
-db_session = LocalSession()
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -32,7 +28,9 @@ def database():
 
 @pytest.yield_fixture(scope="function", autouse=True)
 def session():
+    db_session = Session()
     yield db_session
+    Session.remove()
     db.truncate_all()
 
 
@@ -47,12 +45,11 @@ def user():
     data = {"email": "test@example.com", "first_name": "Test", "last_name": "User"}
 
     try:
-        return db_session.query(User).query.filter(User.email == data["email"]).one()
+        return User.query.filter(User.email == data["email"]).one()
     except:
         usr = User(**data)
         usr.set_password("password")
-        db_session.add(usr)
-        db_session.commit()
+        usr.save()
         return usr
 
 
