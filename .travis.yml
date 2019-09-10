@@ -10,7 +10,6 @@ env:
   - SECRET_KEY=secret
 
 python:
-- "3.6"
 - "3.7"
 - "3.8-dev"
 
