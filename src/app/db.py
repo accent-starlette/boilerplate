@@ -3,7 +3,6 @@ from starlette_core.database import Database, metadata
 from app import settings
 
 # setup database url
-print(settings.DATABASE_URL.driver)
 if settings.DATABASE_URL.driver == "psycopg2":
     engine_kwargs = {"pool_size": 20, "max_overflow": 0}
 else:
