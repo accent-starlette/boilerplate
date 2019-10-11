@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block meta %}
+<meta name="description" content="{{ page.meta_description or '' }}">
+{% endblock %}
+
+{% block content %}
+<div class="container my-1h">
+    <h3>{{ page }}</h3>
+    <hr>
+    <div class="row">
+        <div class="col-md-8">
+            <table class="table-headed">
+                <thead><tr><th colspan="2">Info</th></tr></thead>
+                <tr><th style="width: 200px;">Depth</th><td>{{ page.depth }}</td></tr>
+                <tr><th>Slug</th><td>{{ page.slug }}</td></tr>
+                <tr><th>Order</th><td>{{ page.order }}</td></tr>
+                <tr><th>Is Root Page</th><td>{{ page.is_root_page }}</td></tr>
+                <tr>
+                    <th>Parent</th>
+                    <td>
+                        {% if page.parent %}
+                        <a data-fetch href="{{ url_for('merlin:page', page_path=page.parent.url) }}">{{ page.parent }}</a>
+                        {% else %}-{% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Ancestors</th>
+                    <td>
+                        {% for ancestor in page.ancestors %}
+                        <a data-fetch href="{{ url_for('merlin:page', page_path=ancestor.url) }}">{{ ancestor }}</a><br>
+                        {% else %}-{% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Siblings</th>
+                    <td>
+                        {% for sibling in page.siblings %}
+                        <a data-fetch href="{{ url_for('merlin:page', page_path=sibling.url) }}">{{ sibling }}</a><br>
+                        {% else %}-{% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Children</th>
+                    <td>
+                        {% for child in page.children %}
+                        <a data-fetch href="{{ url_for('merlin:page', page_path=child.url) }}">{{ child }}</a><br>
+                        {% else %}-{% endfor %}
+                    </td>
+                </tr>
+                <tr><th>Number of Descendants</th><td>{{ page.descendants|length() }}</td></tr>
+            </table>
+        </div>
+    </div>
+    <hr>
+    <h1 data-title></h1>
+    <ul data-ancestors></ul>
+    <div data-main-content></div>
+    <a data-author></a>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function splitStream(splitOn) {
+        let buffer = '';
+        return new TransformStream({
+            transform(chunk, controller) {
+                buffer += chunk;
+                const parts = buffer.split(splitOn);
+                parts.slice(0, -1).forEach(part => controller.enqueue(part));
+                buffer = parts[parts.length - 1];
+            },
+            flush(controller) {
+                if (buffer) controller.enqueue(buffer);
+            }
+        });
+    }
+
+    function parseJSON() {
+        return new TransformStream({
+            transform(chunk, controller) {
+                controller.enqueue(JSON.parse(chunk));
+            }
+        });
+    }
+
+    function writeToDOM(reader) {
+        var output = document.querySelector('output');
+        reader.read().then(
+            ({ value, done }) => {
+                if (done) {
+                    console.log('done');
+                } else {
+                    console.log(value);
+                    document.querySelector(`[data-${value.data_attr}]`).innerHTML = value.contents;
+                    writeToDOM(reader);
+                }
+            },
+            e => console.error("The stream became errored and cannot be read from!", e)
+        );
+    }
+
+    async function get_stream(url) {
+        const response = await fetch(url, {
+            credentials: 'same-origin',
+            headers: { 'Content-Type': 'application/x-ndjson' }
+        });
+
+        const results = response.body
+            .pipeThrough(new TextDecoderStream())
+            .pipeThrough(splitStream('\n'))
+            .pipeThrough(parseJSON());
+
+        writeToDOM(results.getReader());
+    }
+
+    document.addEventListener('click', function(e){
+        if(e.target.hasAttribute('data-fetch')){
+            e.preventDefault();
+            get_stream(e.target.href);
+        }
+    })
+</script>
+{% endblock %}

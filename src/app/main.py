@@ -8,6 +8,7 @@ from starlette.middleware.sessions import SessionMiddleware
 from starlette.staticfiles import StaticFiles
 
 from app import admin, db, endpoints, globals, handlers, settings
+from app.merlin import routing as merlin_routing
 
 # config
 starlette_admin.config.logout_url = "/auth/logout"
@@ -54,6 +55,9 @@ app.mount(
     app=StaticFiles(directory="static", packages=["starlette_admin"]),
     name="static",
 )
+
+# merlin
+app.mount(path="/", app=merlin_routing.router, name="merlin")
 
 # middleware
 app.add_middleware(AuthenticationMiddleware, backend=starlette_auth.ModelAuthBackend())

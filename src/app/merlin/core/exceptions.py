@@ -1,0 +1,2 @@
+class PageMoveError(Exception):
+    pass

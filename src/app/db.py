@@ -16,3 +16,4 @@ db = Database(settings.DATABASE_URL, engine_kwargs=engine_kwargs)
 
 # import project and external tables
 from starlette_auth import tables  # noqa isort:skip
+from app.merlin.core import tables  # noqa isort:skip
