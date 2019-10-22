@@ -13,6 +13,13 @@ from app import admin, db, endpoints, globals, handlers, settings
 starlette_admin.config.logout_url = "/auth/logout"
 starlette_auth.config.change_pw_template = "starlette_admin/auth/change_password.html"
 starlette_auth.config.login_template = "starlette_admin/auth/login.html"
+starlette_auth.config.reset_pw_template = "starlette_admin/auth/reset_password.html"
+starlette_auth.config.reset_pw_done_template = "starlette_admin/auth/reset_password_done.html"
+starlette_auth.config.reset_pw_confirm_template = "starlette_admin/auth/reset_password_confirm.html"
+starlette_auth.config.reset_pw_complete_template = "starlette_admin/auth/reset_password_complete.html"
+starlette_auth.config.reset_pw_email_subject_template = "starlette_admin/auth/password_reset_subject.txt"
+starlette_auth.config.reset_pw_email_template = "starlette_admin/auth/password_reset_body.txt"
+starlette_auth.config.secret_key = settings.SECRET_KEY
 starlette_auth.config.templates = globals.templates
 starlette_core.config.email_default_from_address = settings.EMAIL_DEFAULT_FROM_ADDRESS
 starlette_core.config.email_default_from_name = settings.EMAIL_DEFAULT_FROM_NAME
