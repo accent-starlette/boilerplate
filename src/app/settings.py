@@ -13,6 +13,7 @@ SECRET_KEY = config("SECRET_KEY", cast=Secret)
 # email
 EMAIL_HOST = config("EMAIL_HOST", default=None)
 EMAIL_PORT = config("EMAIL_PORT", cast=int, default=None)
+EMAIL_USE_TLS = config("EMAIL_USE_TLS", cast=bool, default=False)
 EMAIL_DEFAULT_FROM_ADDRESS = config("EMAIL_DEFAULT_FROM_ADDRESS", default=None)
 EMAIL_DEFAULT_FROM_NAME = config("EMAIL_DEFAULT_FROM_NAME", default=None)
 EMAIL_USERNAME = config("EMAIL_USERNAME", default=None)

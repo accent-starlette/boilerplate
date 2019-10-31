@@ -35,6 +35,7 @@ starlette_core.config.email_default_from_address = settings.EMAIL_DEFAULT_FROM_A
 starlette_core.config.email_default_from_name = settings.EMAIL_DEFAULT_FROM_NAME
 starlette_core.config.email_host = settings.EMAIL_HOST
 starlette_core.config.email_port = settings.EMAIL_PORT
+starlette_core.config.email_use_tls = settings.EMAIL_USE_TLS
 starlette_core.config.email_username = settings.EMAIL_USERNAME
 starlette_core.config.email_password = settings.EMAIL_PASSWORD
 
