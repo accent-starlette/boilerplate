@@ -1,7 +1,7 @@
 # starlette dependencies
 alembic
 aiofiles
-gunicorn
+gunicorn<20.0.0
 psycopg2-binary
 starlette
 uvicorn
