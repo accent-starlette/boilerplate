@@ -10,15 +10,6 @@ DATABASE_URL = config("DATABASE_URL", cast=DatabaseURL)
 DEBUG = config("DEBUG", cast=bool, default=False)
 SECRET_KEY = config("SECRET_KEY", cast=Secret)
 
-# email
-EMAIL_HOST = config("EMAIL_HOST", default=None)
-EMAIL_PORT = config("EMAIL_PORT", cast=int, default=None)
-EMAIL_USE_TLS = config("EMAIL_USE_TLS", cast=bool, default=False)
-EMAIL_DEFAULT_FROM_ADDRESS = config("EMAIL_DEFAULT_FROM_ADDRESS", default=None)
-EMAIL_DEFAULT_FROM_NAME = config("EMAIL_DEFAULT_FROM_NAME", default=None)
-EMAIL_USERNAME = config("EMAIL_USERNAME", default=None)
-EMAIL_PASSWORD = config("EMAIL_PASSWORD", cast=Secret, default=None)
-
 # aws
 AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID", default=None)
 AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY", cast=Secret, default=None)
