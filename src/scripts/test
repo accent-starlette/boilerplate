@@ -2,7 +2,7 @@
 
 set -x
 
-pytest --cov=app --cov-report html
+pytest --cov=app --cov-report=xml
 mypy app --ignore-missing-imports
 autoflake --recursive --remove-unused-variables app tests
 black app tests --check

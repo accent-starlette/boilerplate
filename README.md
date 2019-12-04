@@ -1,8 +1,6 @@
 # Starlette Boilerplate Project
 
-<a href="https://travis-ci.org/accent-starlette/boilerplate">
-    <img src="https://travis-ci.org/accent-starlette/boilerplate.svg?branch=master" alt="Build Status">
-</a>
+![](https://github.com/accent-starlette/boilerplate/workflows/Test,%20Build%20and%20Publish/badge.svg?branch=master)
 
 ## Getting Started
 
