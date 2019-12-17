@@ -1,7 +1,8 @@
 # Starlette Boilerplate Project
 
 [![Sourcery](https://img.shields.io/badge/Sourcery-refactored-blueviolet.svg)](https://sourcery.ai)
-![](https://github.com/accent-starlette/boilerplate/workflows/Test,%20Build%20and%20Publish/badge.svg?branch=master)
+![](https://github.com/accent-starlette/boilerplate/workflows/Test/badge.svg?branch=master)
+![](https://github.com/accent-starlette/boilerplate/workflows/Publish%20to%20ECR/badge.svg?branch=master)
 
 ## Getting Started
 

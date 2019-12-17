@@ -1,0 +1,39 @@
+name: Test
+
+on: push 
+
+jobs:
+  test:
+    name: Run Linting and Tests
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_BD: appdb
+        ports:
+        - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Set up Python 3.7.x
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7.x
+
+    - name: Install Dependencies
+      run: pip install -r requirements/dev.txt
+
+    - name: Run Linting and Tests
+      env:
+        PYTHONUNBUFFERED: 1
+        ALLOWED_HOSTS: "*"
+        DATABASE_URL: "postgresql://postgres:password@localhost:5432/appdb"
+        SECRET_KEY: 'some-secret-key'
+      run: cd src && scripts/test
