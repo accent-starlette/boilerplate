@@ -2,45 +2,39 @@ import starlette_admin
 import starlette_auth
 import starlette_core
 from starlette.applications import Starlette
+from starlette.middleware import Middleware
 from starlette.middleware.authentication import AuthenticationMiddleware
 from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
+from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
 
 from app import admin, db, endpoints, globals, handlers, settings
 
-# config
 starlette_admin.config.templates = globals.templates
 starlette_auth.config.templates = globals.templates
 
-# base app
-app = Starlette(debug=settings.DEBUG)
+static = StaticFiles(directory="static", packages=["starlette_admin"])
 
-# routes
-app.add_route("/", endpoints.Home, methods=["GET"], name="home")
+middleware = [
+    Middleware(starlette_core.middleware.DatabaseMiddleware),
+    Middleware(CORSMiddleware, allow_origins=settings.ALLOWED_HOSTS),
+    Middleware(SessionMiddleware, secret_key=settings.SECRET_KEY),
+    Middleware(AuthenticationMiddleware, backend=starlette_auth.ModelAuthBackend()),
+]
 
-# sub apps
-app.mount(path="/admin", app=admin.adminsite, name=admin.adminsite.name)
-app.mount(path="/auth", app=starlette_auth.app, name="auth")
+routes = [
+    Route("/", endpoints.Home, methods=["GET"], name="home"),
+    Mount("/admin", app=admin.adminsite, name=admin.adminsite.name),
+    Mount("/auth", app=starlette_auth.app, name="auth"),
+    Mount("/static", app=static, name="static"),
+]
 
-# static app
-app.mount(
-    path="/static",
-    app=StaticFiles(directory="static", packages=["starlette_admin"]),
-    name="static",
-)
+app = Starlette(debug=settings.DEBUG, middleware=middleware, routes=routes)  # type: ignore
 
-# middleware
-app.add_middleware(AuthenticationMiddleware, backend=starlette_auth.ModelAuthBackend())
-app.add_middleware(SessionMiddleware, secret_key=settings.SECRET_KEY)
-app.add_middleware(CORSMiddleware, allow_origins=settings.ALLOWED_HOSTS)
-app.add_middleware(starlette_core.middleware.DatabaseMiddleware)
-
-# exception handlers
 app.add_exception_handler(404, handlers.not_found)
 app.add_exception_handler(500, handlers.server_error)
 
-# sentry
 if settings.SENTRY_DSN:
     try:
         from sentry_asgi import SentryMiddleware
