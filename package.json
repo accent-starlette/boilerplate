@@ -19,15 +19,15 @@
     "uglify-js": "^3.4.10"
   },
   "devDependencies": {
-    "autoprefixer": "^9.5.0",
-    "clean-css-cli": "^4.2.1",
-    "cpy-cli": "^2.0.0",
-    "fontello-cli": "^0.4.0",
+    "autoprefixer": "^9.7.3",
+    "clean-css-cli": "^4.3.0",
+    "cpy-cli": "^3.0.0",
+    "fontello-cli": "^0.5.0",
     "karma-css": "^1.9.7",
-    "node-sass": "^4.7.2",
-    "nodemon": "^1.18.10",
+    "node-sass": "^4.13.0",
+    "nodemon": "^2.0.2",
     "npm-run-all": "^4.1.5",
-    "postcss-cli": "^6.1.2"
+    "postcss-cli": "^7.0.0"
   },
   "browserslist": [
     "last 1 major version",
