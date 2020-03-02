@@ -109,3 +109,45 @@ build css:
 ```bash
 npm run watch-css
 ```
+
+## Postgres Query Stats
+
+The following line must be added the the `postgresql.conf` file:
+
+```bash
+shared_preload_libraries = 'pg_stat_statements'
+```
+
+Enable the extension in postgres:
+
+```sql
+CREATE EXTENSION pg_stat_statements;
+```
+
+Reset stats:
+
+```sql
+SELECT pg_stat_statements_reset();
+```
+
+View all logged stats:
+
+```sql
+SELECT
+query,
+calls,
+total_time,
+min_time,
+max_time,
+mean_time,
+rows,
+100.0 * shared_blks_hit / nullif(shared_blks_hit + shared_blks_read, 0) AS hit_percent
+FROM pg_stat_statements
+INNER JOIN pg_catalog.pg_database db
+ON pg_stat_statements.dbid = db.oid
+WHERE db.datname = 'appdb'
+ORDER BY total_time
+DESC LIMIT 25;
+```
+
+More info: https://www.postgresql.org/docs/current/pgstatstatements.html
