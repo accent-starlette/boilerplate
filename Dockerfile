@@ -1,6 +1,6 @@
 ARG         REQUIREMENTS_FILE=/requirements/base.txt
 
-FROM        accent/starlette-docker:3.7-alpine
+FROM        accent/starlette-docker:3.8-alpine
 
 ENV         APP_MODULE=app.main:app \
             ALLOWED_HOSTS="*" \
