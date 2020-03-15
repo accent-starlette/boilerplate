@@ -30,7 +30,7 @@ routes = [
     Mount("/static", app=static, name="static"),
 ]
 
-app = Starlette(debug=settings.DEBUG, middleware=middleware, routes=routes)  # type: ignore
+app = Starlette(debug=settings.DEBUG, middleware=middleware, routes=routes)
 
 app.add_exception_handler(404, handlers.not_found)
 app.add_exception_handler(500, handlers.server_error)
