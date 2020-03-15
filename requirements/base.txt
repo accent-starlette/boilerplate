@@ -1,9 +1,7 @@
 # starlette dependencies
 alembic
-aiofiles
-gunicorn<20.0.0
+gunicorn
 psycopg2-binary
-starlette
 uvicorn
 
 # accent stuff
