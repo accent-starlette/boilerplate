@@ -18,13 +18,6 @@ starlette_auth.config.templates = globals.templates
 static = StaticFiles(directory="static", packages=["starlette_admin"])
 staticapp = GZipMiddleware(static)
 
-middleware = [
-    Middleware(starlette_core.middleware.DatabaseMiddleware),
-    Middleware(CORSMiddleware, allow_origins=settings.ALLOWED_HOSTS),
-    Middleware(SessionMiddleware, secret_key=settings.SECRET_KEY),
-    Middleware(AuthenticationMiddleware, backend=starlette_auth.ModelAuthBackend()),
-]
-
 routes = [
     Route("/", endpoints.Home, methods=["GET"], name="home"),
     Mount("/admin", app=admin.adminsite, name=admin.adminsite.name),
@@ -32,10 +25,24 @@ routes = [
     Mount("/static", app=staticapp, name="static"),
 ]
 
-app = Starlette(debug=settings.DEBUG, middleware=middleware, routes=routes)
+middleware = [
+    Middleware(starlette_core.middleware.DatabaseMiddleware),
+    Middleware(CORSMiddleware, allow_origins=settings.ALLOWED_HOSTS),
+    Middleware(SessionMiddleware, secret_key=settings.SECRET_KEY),
+    Middleware(AuthenticationMiddleware, backend=starlette_auth.ModelAuthBackend()),
+]
 
-app.add_exception_handler(404, handlers.not_found)
-app.add_exception_handler(500, handlers.server_error)
+exception_handlers = {
+    404: handlers.not_found,
+    500: handlers.server_error,
+}
+
+app = Starlette(
+    debug=settings.DEBUG,
+    routes=routes,
+    middleware=middleware,
+    exception_handlers=exception_handlers,  # type: ignore
+)
 
 if settings.SENTRY_DSN:
     try:
