@@ -5,6 +5,7 @@ from starlette.applications import Starlette
 from starlette.middleware import Middleware
 from starlette.middleware.authentication import AuthenticationMiddleware
 from starlette.middleware.cors import CORSMiddleware
+from starlette.middleware.gzip import GZipMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from starlette.routing import Mount, Route
 from starlette.staticfiles import StaticFiles
@@ -15,6 +16,7 @@ starlette_admin.config.templates = globals.templates
 starlette_auth.config.templates = globals.templates
 
 static = StaticFiles(directory="static", packages=["starlette_admin"])
+staticapp = GZipMiddleware(static)
 
 middleware = [
     Middleware(starlette_core.middleware.DatabaseMiddleware),
@@ -27,7 +29,7 @@ routes = [
     Route("/", endpoints.Home, methods=["GET"], name="home"),
     Mount("/admin", app=admin.adminsite, name=admin.adminsite.name),
     Mount("/auth", app=starlette_auth.app, name="auth"),
-    Mount("/static", app=static, name="static"),
+    Mount("/static", app=staticapp, name="static"),
 ]
 
 app = Starlette(debug=settings.DEBUG, middleware=middleware, routes=routes)
