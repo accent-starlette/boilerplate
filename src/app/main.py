@@ -46,10 +46,10 @@ app = Starlette(
 
 if settings.SENTRY_DSN:
     try:
-        from sentry_asgi import SentryMiddleware
         import sentry_sdk
+        from sentry_sdk.integrations.asgi import SentryAsgiMiddleware
 
         sentry_sdk.init(str(settings.SENTRY_DSN))
-        app = SentryMiddleware(app)
+        app.add_middleware(SentryAsgiMiddleware)
     except ImportError:
         pass
