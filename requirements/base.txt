@@ -5,11 +5,12 @@ psycopg2-binary
 uvicorn
 
 # accent stuff
-git+https://github.com/accent-starlette/starlette-admin.git@master#egg=starlette-admin
-git+https://github.com/accent-starlette/starlette-auth.git@master#egg=starlette-auth
-git+https://github.com/accent-starlette/starlette-core.git@master#egg=starlette-core
-# git+https://github.com/accent-starlette/starlette-files.git@master#egg=starlette-files[s3]
+starlette-admin @ http://github.com/accent-starlette/starlette-admin/tarball/master#egg=starlette-admin
+starlette-auth @ http://github.com/accent-starlette/starlette-auth/tarball/master#egg=starlette-auth
+starlette-core @ http://github.com/accent-starlette/starlette-core/tarball/master#egg=starlette-core
+# starlette-files @ http://github.com/accent-starlette/starlette-files/tarball/master#egg=starlette-files[s3]
 
 # other..
 sentry-asgi
 wtforms-alchemy
+sqlalchemy<1.4

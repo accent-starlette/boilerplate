@@ -1,3 +1,4 @@
+ARG         EXTRA_BUILD_DEPS='g++'
 ARG         REQUIREMENTS_FILE=/requirements/base.txt
 
 FROM        accent/starlette-docker:3.8-alpine
